@@ -41,10 +41,10 @@ public class BuildingController {
 //
 //		for (BuildingDTO item : results) {
 //			if (item.getId() == 3) {
-//				System.out.println("Tên tòa nhà : " + item.getName());
-//				System.out.println("Tên phường : " + item.getWard());
-//				System.out.println("Tên đường : " + item.getStreet());
-//				System.out.println(" Sô tầng hầm : " + item.getNumberofbasement());
+//				System.out.println("TÃªn tÃ²a nhÃ  : " + item.getName());
+//				System.out.println("TÃªn phÆ°á»�ng : " + item.getWard());
+//				System.out.println("TÃªn Ä‘Æ°á»�ng : " + item.getStreet());
+//				System.out.println(" SÃ´ táº§ng háº§m : " + item.getNumberofbasement());
 //				System.out.println("---------------------");
 //			}
 //		}
@@ -52,11 +52,11 @@ public class BuildingController {
 		// buildingDTO.setId(3L);
 //		buildingDTO.setName(" Testttt name");
 //		buildingDTO.setWard(" Testttt wward");
-		// buildingDTO.setWard(" quận 100000sdas");
-		// buildingService.insert(buildingDTO); // nạp chồng phương thức
-		// buildingService.save(buildingDTO); // nạp chồng phương thức
+		// buildingDTO.setWard(" quáº­n 100000sdas");
+		// buildingService.insert(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
+		// buildingService.save(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 		do {
-			System.out.println("1 - Tìm kiếm thông tin qua ID");
+			System.out.println("1 - Find by ID");
 			System.out.println("2 - Update");
 			System.out.println("3 - insert");
 			System.out.println("4 - delete");
@@ -95,16 +95,16 @@ public class BuildingController {
 		IBuildingService buildingService = new BuildingService();
 		List<BuildingDTO> results = buildingService.findAll1();
 		for (BuildingDTO item : results) {
-			System.out.println("ID tòa nhà : " + item.getId());
-			System.out.println("Tên tòa nhà : " + item.getName());
-			System.out.println("Tên phường : " + item.getWard());
-			System.out.println("Tên đường : " + item.getStreet());
-			System.out.println(" Sô tầng hầm : " + item.getNumberofbasement());
+			System.out.println("ID Building : " + item.getId());
+			System.out.println("Name  : " + item.getName());
+			System.out.println("Ward : " + item.getWard());
+			System.out.println("Street: " + item.getStreet());
+			System.out.println(" Numberofbasement: " + item.getNumberofbasement());
 			
 			
 			for (DistrictEnum district : DistrictEnum.values()) {
 				if(district.name().equals(item.getDistrict())) {
-					System.out.println(" Quận: " + district.getValue());
+					System.out.println(" District: " + district.getValue());
 					break;
 				}
 				
@@ -118,7 +118,7 @@ public class BuildingController {
 	public static void findById() {
 		IBuildingService buildingService = new BuildingService();
 		List<BuildingDTO> results = buildingService.findAll1();
-		System.out.print("Nhập vào id tòa nhà bạn muốn tìm kiếm :");
+		System.out.print("Import Id You want to find :");
 		String id = "";
 		String renumber = "\\d{1,3}";
 		// sl = new Scanner(System.in).nextLine();
@@ -131,20 +131,20 @@ public class BuildingController {
 			}
 		} while (!id.matches(renumber));
 		boolean stt = false;
-		System.out.println("Thông tin tòa nhà có id = " + id + " là :");
+		System.out.println("Information ob building with id = " + id + " is  :");
 		for (BuildingDTO item : results) {
 			if (item.getId().equalsIgnoreCase(id)) {
 				stt = true;
-				System.out.println("Tên tòa nhà : " + item.getName());
-				System.out.println("Tên phường : " + item.getWard());
-				System.out.println("Tên đường : " + item.getStreet());
-				System.out.println(" Sô tầng hầm : " + item.getNumberofbasement());
-				System.out.println(" Quận: " + item.getDistrict());
+				System.out.println(" Name  : " + item.getName());
+				System.out.println("Ward : " + item.getWard());
+				System.out.println("Street : " + item.getStreet());
+				System.out.println(" Numberofbasement: " + item.getNumberofbasement());
+				System.out.println(" Numberofbasement " + item.getNumberofbasement());
 				System.out.println("---------------------");
 			}
 		}
 		if (!stt) {
-			System.out.println("không tìm thấy tòa nhà có id " + id);
+			System.out.println("Not Found " + id);
 		}
 
 	}
@@ -154,23 +154,23 @@ public class BuildingController {
 		List<BuildingDTO> results = buildingService.findAll1();
 		BuildingDTO buildingDTO = new BuildingDTO();
 		boolean stt = false;
-		System.out.print("Nhap vào ID tòa nhà bạn muốn sửa : ");
+		System.out.print("Import Id You want to edit : ");
 		String id = new Scanner(System.in).nextLine();
 		for (BuildingDTO item : results) {
 			if (item.getId().equalsIgnoreCase(id)) {
 				stt = true;
 				buildingDTO.setId(id);
-				System.out.print("Nhap vào tên tòa nhà : ");
+				System.out.print("Nhap vÃ o tÃªn tÃ²a nhÃ  : ");
 				String name = new Scanner(System.in).nextLine();
 				buildingDTO.setName(name);
-				System.out.print("Nhap vào tên phường tòa nhà : ");
+				System.out.print("Nhap vÃ o tÃªn phÆ°á»�ng tÃ²a nhÃ  : ");
 				String ward = new Scanner(System.in).nextLine();
 				buildingDTO.setWard(ward);
-				buildingService.update(buildingDTO); // nạp chồng phương thức
+				buildingService.update(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 			}
 		}
 		if (!stt) {
-			System.out.println("không tìm thấy tòa nhà có id " + id);
+			System.out.println("khÃ´ng tÃ¬m tháº¥y tÃ²a nhÃ  cÃ³ id " + id);
 		}
 
 	}
@@ -178,25 +178,25 @@ public class BuildingController {
 	public static void insert() {
 		IBuildingService buildingService = new BuildingService();
 		BuildingDTO buildingDTO = new BuildingDTO();
-		System.out.print("Nhập vào tên tòa nhà: ");
+		System.out.print("Nháº­p vÃ o tÃªn tÃ²a nhÃ : ");
 		String name = new Scanner(System.in).nextLine();
 		buildingDTO.setName(name);
-		System.out.print("Nhập vào tên phường: ");
+		System.out.print("Nháº­p vÃ o tÃªn phÆ°á»�ng: ");
 		String ward = new Scanner(System.in).nextLine();
 		buildingDTO.setWard(ward);
-		System.out.print("Nhập vào số tầng hầm: ");
+		System.out.print("Nháº­p vÃ o sá»‘ táº§ng háº§m: ");
 		int numberofbasement = new Scanner(System.in).nextInt();
 		buildingDTO.setNumberofbasement(numberofbasement);
-		buildingService.insert(buildingDTO); // nạp chồng phương thức
+		buildingService.insert(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 	}
 
 	public static void delete() {
 		IBuildingService buildingService = new BuildingService();
 		BuildingDTO buildingDTO = new BuildingDTO();
-		System.out.print("Nhap vào ID tòa nhà bạn muốn xóa : ");
+		System.out.print("Nhap vÃ o ID tÃ²a nhÃ  báº¡n muá»‘n xÃ³a : ");
 		String id = new Scanner(System.in).nextLine();
 		buildingDTO.setId(id);
-		buildingService.delete(buildingDTO); // nạp chồng phương thức
+		buildingService.delete(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 
 	}
 
