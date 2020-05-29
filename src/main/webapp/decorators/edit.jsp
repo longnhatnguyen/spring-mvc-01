@@ -36,9 +36,17 @@
 	</script>
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement) document.write("<script src="<c:url value='/template/assets/js/jquery.mobile.custom.min.js'/>">" + "<" +  "/script>");
-	</script>	
+	</script>
+	
+	<script src="<c:url value='/template/assets/js/bootstrap.min.js'/>"></script>
+	<script src="<c:url value='/template/assets/js/jquery.bootstrap-duallistbox.min.js'/>"></script>
+	
+	<script src="<c:url value='/template/assets/js/jquery.raty.min.js'/>"></script>
+	<script src="<c:url value='/template/assets/js/select2.min.js'/>"></script>
+	<script src="<c:url value='/template/assets/js/typeahead.jquery.min.js'/>"></script>	
 	<script src="<c:url value='/template/assets/js/bootstrap-multiselect.min.js'/>"></script>
 		<script type="text/javascript">
+		
 		
 		jQuery(function ($) {
 			//////////////////

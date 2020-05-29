@@ -160,17 +160,17 @@ public class BuildingController {
 			if (item.getId().equalsIgnoreCase(id)) {
 				stt = true;
 				buildingDTO.setId(id);
-				System.out.print("Nhap vÃ o tÃªn tÃ²a nhÃ  : ");
+				System.out.print("Import new name of building  : ");
 				String name = new Scanner(System.in).nextLine();
 				buildingDTO.setName(name);
-				System.out.print("Nhap vÃ o tÃªn phÆ°á»�ng tÃ²a nhÃ  : ");
+				System.out.print("Import new ward of building : ");
 				String ward = new Scanner(System.in).nextLine();
 				buildingDTO.setWard(ward);
 				buildingService.update(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 			}
 		}
 		if (!stt) {
-			System.out.println("khÃ´ng tÃ¬m tháº¥y tÃ²a nhÃ  cÃ³ id " + id);
+			System.out.println("Not Found  " + id);
 		}
 
 	}
@@ -178,13 +178,13 @@ public class BuildingController {
 	public static void insert() {
 		IBuildingService buildingService = new BuildingService();
 		BuildingDTO buildingDTO = new BuildingDTO();
-		System.out.print("Nháº­p vÃ o tÃªn tÃ²a nhÃ : ");
+		System.out.print("Import new name of building: ");
 		String name = new Scanner(System.in).nextLine();
 		buildingDTO.setName(name);
-		System.out.print("Nháº­p vÃ o tÃªn phÆ°á»�ng: ");
+		System.out.print("Import new ward of building: ");
 		String ward = new Scanner(System.in).nextLine();
 		buildingDTO.setWard(ward);
-		System.out.print("Nháº­p vÃ o sá»‘ táº§ng háº§m: ");
+		System.out.print("Import  numberofbasement of building: ");
 		int numberofbasement = new Scanner(System.in).nextInt();
 		buildingDTO.setNumberofbasement(numberofbasement);
 		buildingService.insert(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
@@ -193,7 +193,7 @@ public class BuildingController {
 	public static void delete() {
 		IBuildingService buildingService = new BuildingService();
 		BuildingDTO buildingDTO = new BuildingDTO();
-		System.out.print("Nhap vÃ o ID tÃ²a nhÃ  báº¡n muá»‘n xÃ³a : ");
+		System.out.print("Import Id You want to delete : ");
 		String id = new Scanner(System.in).nextLine();
 		buildingDTO.setId(id);
 		buildingService.delete(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
