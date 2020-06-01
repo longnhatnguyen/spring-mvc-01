@@ -48,8 +48,7 @@ public class BuildingReprository extends SimpleJpaRepository<BuildingEntity> imp
 		}
 	}
 
-	@Override
-	public void delete(BuildingEntity deleteBuildingEntity) {
+	/*public void delete(BuildingEntity deleteBuildingEntity) {
 		Connection connection = null;
 		PreparedStatement stmt = null;
 		try {
@@ -85,6 +84,6 @@ public class BuildingReprository extends SimpleJpaRepository<BuildingEntity> imp
 		}
 
 		
-	}
+	}*/
 
 } 

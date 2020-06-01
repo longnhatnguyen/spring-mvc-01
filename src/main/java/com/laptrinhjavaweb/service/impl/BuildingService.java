@@ -16,16 +16,15 @@ public class BuildingService implements IBuildingService {
 	 
 	@Override
 	public List<BuildingDTO> findAll1() {
-		List<BuildingDTO> results = new ArrayList<BuildingDTO>(); // gọi DTO vào
-		List<BuildingEntity> buildingEntities = buildingReporsitory.findAllJpa(); // đổ dữ liệu từ hàm tìm kiếm kia vào list Entity
+		List<BuildingDTO> results = new ArrayList<BuildingDTO>(); // gá»�i DTO vÃ o
+		List<BuildingEntity> buildingEntities = buildingReporsitory.findAllJpa(); // Ä‘á»• dá»¯ liá»‡u tá»« hÃ m tÃ¬m kiáº¿m kia vÃ o list Entity
 		for (BuildingEntity item : buildingEntities) {
-			BuildingDTO buildingDTO = buildingConverter.convertDto(item);
-			
+			BuildingDTO buildingDTO = buildingConverter.convertDto(item);		
 //			buildingDTO.setName(item.getName());
 //			buildingDTO.setId(item.getId());
 //			buildingDTO.setWard(item.getWard());
 //			buildingDTO.setStreet(item.getStreet());
-//			buildingDTO.setNumberofbasement(item.getNumberofbasement()); // đổ lại dữ liệu từ Entity vào DTO
+//			buildingDTO.setNumberofbasement(item.getNumberofbasement()); // Ä‘á»• láº¡i dá»¯ liá»‡u tá»« Entity vÃ o DTO
 			results.add(buildingDTO);
 		}
 		return results;
@@ -38,13 +37,19 @@ public class BuildingService implements IBuildingService {
 		buildingEntity.setId(updateBuilding.getId()); // lay du lieu tu DTO nha ra cho entity
 		buildingEntity.setWard(updateBuilding.getWard()); // lay du lieu tu DTO nha ra cho entity	
 		//buildingEntity.set(updateBuilding.getIdUpDate()); // lay du lieu tu DTO nha ra cho entity	
-		// sau khi mình có dữ liệu thì mình nạp lại cho bên repo để đẩy lên
+		// sau khi mÃ¬nh cÃ³ dá»¯ liá»‡u thÃ¬ mÃ¬nh náº¡p láº¡i cho bÃªn repo Ä‘á»ƒ Ä‘áº©y lÃªn
 		buildingReporsitory.update(buildingEntity);
 	}
 
 
 	@Override
 	public void insert(BuildingDTO newBuilding) {
+		//List<BuildingDTO> results = new ArrayList<BuildingDTO>(); 	 // khai bao list DTO	
+//	==	for (BuildingDTO item: results ) { // duyet list tra ra du lieu c
+//			BuildingEntity buildingEntity = buildingConverter.convertEntity(item);
+//			results.add(item);
+//			buildingReporsitory.insert(results);
+//		}
 		BuildingEntity buildingEntity = new BuildingEntity();
 		buildingEntity.setName(newBuilding.getName()); // lay du lieu tu DTO nha ra cho entity
 		buildingEntity.setWard(newBuilding.getWard()); // lay du lieu tu DTO nha ra cho entity		
@@ -54,12 +59,12 @@ public class BuildingService implements IBuildingService {
 	}
 
 	@Override
-	public void delete(BuildingDTO deleteBuilding) {
-		// TODO Auto-generated method stub
+	public void delete(String id) {
 		BuildingEntity buildingEntity = new BuildingEntity();
-		buildingEntity.setId(deleteBuilding.getId());
-		buildingReporsitory.delete(buildingEntity);
-		
+		//buildingEntity.setId(deleteBuilding.getId());
+		//buildingReporsitory.delete(buildingEntity);
+		buildingReporsitory.delete(id);
 	}
+
 
 }

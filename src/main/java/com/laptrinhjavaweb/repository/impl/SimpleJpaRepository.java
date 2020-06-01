@@ -21,12 +21,13 @@ import com.laptrinhjavaweb.repository.JpaRepositoy;
 
 public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 	private Class<T> zClass;
+	private String id = "";
 	@SuppressWarnings("unchecked")
 	public SimpleJpaRepository() {
 		 //vi T la 1 generics nen phai ep sang Class va duoi day la syntax
-		zClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; // syntax Ép T sang class
+		zClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; // syntax Ã‰p T sang class
 	}
-	protected Connection getConnection() { // connection xài chung
+	protected Connection getConnection() { // connection xÃ i chung
 		// STEP 2: Register JDBC driver
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -77,7 +78,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			{
 				ResultSetMetaData resultSetMetaData = rs.getMetaData(); // khai bao lay du lieu trong sql
 				Field[] fields = zClass.getDeclaredFields(); // dung o dau thi lay dc data tu field do, cho vao mang[]
-				while (rs.next()) { // quét từng row và trả về values
+				while (rs.next()) { // quÃ©t tá»«ng row vÃ  tráº£ vá»� values
 					@SuppressWarnings("unused")
 					T object = zClass.newInstance(); // khoi tao T la 1 doi tuong
 					for (int i = 0; i < resultSetMetaData.getColumnCount(); i++) // chay cac cot trong bang
@@ -123,7 +124,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		System.out.println("load Repositoy");
 		return results;
 
-	}
+	} 
 	@Override
 	public void insert(Object object) {
 		String sql = buildSqlInsert();
@@ -132,7 +133,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		try {
 			connection = getConnection();
 			connection.setAutoCommit(false);
-			stmt = connection.prepareStatement(sql.toString()); // chuyển sang string
+			stmt = connection.prepareStatement(sql.toString()); // chuyá»ƒn sang string
 			Class<?> aClass = object.getClass();
 			int index = 0;
 			for (Field field : aClass.getDeclaredFields()) {
@@ -142,7 +143,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				
 			}
 			int i = stmt.executeUpdate();
-			System.out.println(i + " Cập nhật thành công");
+			System.out.println(i + " Cáº­p nháº­t thÃ nh cÃ´ng");
 			connection.commit();
 
 		} catch (Exception e) {
@@ -170,8 +171,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		
 	}
 
-	private String buildSqlInsert() {
-		
+	private String buildSqlInsert() {		
 		String tableName = "";
 		if (zClass.isAnnotationPresent(Table.class)) // check ben annotation
 		{
@@ -192,10 +192,96 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				fields.append(column.name());
 				values.append("?");
 			}
-		}
-		
+		}	
 		String sql = "INSERT INTO " + tableName+"("+fields.toString()+") VALUES("+values.toString()+")";		
 		return sql;
+	}
+
+	@Override
+	public void delete(String id) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement statement = null;
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			
+			String tableName = "";
+			if (zClass.isAnnotationPresent(Table.class)) {
+				Table table = zClass.getAnnotation(Table.class);
+				tableName = table.name();
+			}
+			
+			String sql = "DELETE FROM "+tableName+" WHERE id = ?";
+
+			statement = conn.prepareStatement(sql);
+			if (conn != null) {
+				statement.setObject(1, id);
+				statement.executeUpdate();
+				//int i = stmt.executeUpdate();
+				System.out.println(" Cáº­p nháº­t thÃ nh cÃ´ng");
+				conn.commit();
+			}
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				conn.close();
+				statement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public List<T> findById(String id) {
+		Connection conn = null;
+		PreparedStatement statement = null;
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			
+			String tableName = "";
+			if (zClass.isAnnotationPresent(Table.class)) {
+				Table table = zClass.getAnnotation(Table.class);
+				tableName = table.name();
+			}
+			
+			String sql = "SELECT FROM "+tableName+" WHERE id = ?";
+
+			statement = conn.prepareStatement(sql);
+			if (conn != null) {
+				statement.setObject(1, id);
+				statement.executeUpdate();
+				//int i = stmt.executeUpdate();
+				System.out.println(" Cáº­p nháº­t thÃ nh cÃ´ng");
+				conn.commit();
+			}
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				conn.close();
+				statement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 }

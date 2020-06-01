@@ -195,8 +195,7 @@ public class BuildingController {
 		BuildingDTO buildingDTO = new BuildingDTO();
 		System.out.print("Import Id You want to delete : ");
 		String id = new Scanner(System.in).nextLine();
-		buildingDTO.setId(id);
-		buildingService.delete(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
+		buildingService.delete(id); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 
 	}
 
