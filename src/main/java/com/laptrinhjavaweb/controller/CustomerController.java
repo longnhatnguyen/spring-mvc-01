@@ -44,6 +44,12 @@ public class CustomerController {
 		customerService.delete(id); // nạp chồng phương thức
 
 	}
+	public static void find() {
+		System.out.print("Import Id You want to find : ");
+		String id = new Scanner(System.in).nextLine();
+		ICustomerService customerService = new CustomerService();
+		customerService.findID(id); // nạp chồng phương thức
+	}
 
 
 }

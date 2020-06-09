@@ -119,19 +119,9 @@ public class BuildingController {
 		IBuildingService buildingService = new BuildingService();
 		List<BuildingDTO> results = buildingService.findAll1();
 		System.out.print("Import Id You want to find :");
-		String id = "";
-		String renumber = "\\d{1,3}";
-		// sl = new Scanner(System.in).nextLine();
-		do {
-			id = new Scanner(System.in).nextLine();
-			if (id.matches(renumber))
-				break;
-			else {
-				System.out.println("Vui long nhap so : ");
-			}
-		} while (!id.matches(renumber));
-		boolean stt = false;
-		System.out.println("Information ob building with id = " + id + " is  :");
+		String id = new Scanner(System.in).nextLine();
+		buildingService.findID(id);
+			boolean stt = false;
 		for (BuildingDTO item : results) {
 			if (item.getId().equalsIgnoreCase(id)) {
 				stt = true;
@@ -166,7 +156,7 @@ public class BuildingController {
 				System.out.print("Import new ward of building : ");
 				String ward = new Scanner(System.in).nextLine();
 				buildingDTO.setWard(ward);
-				buildingService.update(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
+				buildingService.update(buildingDTO,id); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 			}
 		}
 		if (!stt) {
@@ -196,7 +186,6 @@ public class BuildingController {
 		System.out.print("Import Id You want to delete : ");
 		String id = new Scanner(System.in).nextLine();
 		buildingService.delete(id); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
-
 	}
 
 }

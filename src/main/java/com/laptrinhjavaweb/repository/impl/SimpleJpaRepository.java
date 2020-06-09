@@ -144,6 +144,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			}
 			int i = stmt.executeUpdate();
 			System.out.println(i + " Cáº­p nháº­t thÃ nh cÃ´ng");
+			System.out.println(sql);
 			connection.commit();
 
 		} catch (Exception e) {
@@ -171,31 +172,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		
 	}
 
-	private String buildSqlInsert() {		
-		String tableName = "";
-		if (zClass.isAnnotationPresent(Table.class)) // check ben annotation
-		{
-			Table table = zClass.getAnnotation(Table.class);
-			tableName = table.name();
-		}
-		StringBuilder fields = new StringBuilder("");
-		StringBuilder values = new StringBuilder("");
-		for (Field field : zClass.getDeclaredFields()) {
-			
-			if(fields.length()>1) {
-				fields.append(",");
-				values.append(",");
-			}
-			if (field.isAnnotationPresent(Column.class)) // check ben annotation
-			{
-				Column column = field.getAnnotation(Column.class);
-				fields.append(column.name());
-				values.append("?");
-			}
-		}	
-		String sql = "INSERT INTO " + tableName+"("+fields.toString()+") VALUES("+values.toString()+")";		
-		return sql;
-	}
+	
 
 	@Override
 	public void delete(String id) {
@@ -217,7 +194,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			statement = conn.prepareStatement(sql);
 			if (conn != null) {
 				statement.setObject(1, id);
-				statement.executeUpdate();
+				statement.executeUpdate();System.out.println(sql);
 				//int i = stmt.executeUpdate();
 				System.out.println(" Cáº­p nháº­t thÃ nh cÃ´ng");
 				conn.commit();
@@ -255,13 +232,12 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			}
 			
 			String sql = "SELECT FROM "+tableName+" WHERE id = ?";
-
 			statement = conn.prepareStatement(sql);
 			if (conn != null) {
 				statement.setObject(1, id);
 				statement.executeUpdate();
 				//int i = stmt.executeUpdate();
-				System.out.println(" Cáº­p nháº­t thÃ nh cÃ´ng");
+				System.out.println(" done");
 				conn.commit();
 			}
 		} catch (Exception e) {
@@ -282,6 +258,112 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			}
 		}
 		return null;
+	}
+	@Override
+	public void update(Object object, String id) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement statement = null;	
+		
+		try {			
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			String sql = createSQLUpdate();		
+			statement = conn.prepareStatement(sql.toString());
+			Class<?> aClass = object.getClass();
+			int index = 0;
+			for (Field field : aClass.getDeclaredFields()) {
+				index ++;
+				field.setAccessible(true);
+				statement.setObject(index, field.get(object));
+				
+			}
+			if (conn != null) {
+				statement.setObject(1,id); // em chac chan sai doan nay, van de cua em la truyen id vao where nhung ko biet lam
+				
+				System.out.println(id);
+				System.out.println(sql);
+				statement.executeUpdate();
+				conn.commit();
+				//int i = stmt.executeUpdate();
+				System.out.println(" Cap nhat thanh cong");
+				
+			}
+			
+			
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				conn.close();
+				statement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+ // update + table + SETS id = ? , name = ? where id ;
+	private String createSQLUpdate() {
+		String tableName = "";
+		if (zClass.isAnnotationPresent(Table.class)) {
+			Table table = zClass.getAnnotation(Table.class);
+			tableName = table.name();
+		} // lay name
+
+		// KHÚC KHÁC VỚI INSERT
+		StringBuilder setfields = new StringBuilder();
+		String id = null;
+		
+		// VIẾT QUERY CHO CLASS CON - (name, street....) values (?,?,...)
+		for (Field field : zClass.getDeclaredFields()) { // get mảng các column trong entity
+			if (field.isAnnotationPresent(Column.class)) {
+				Column column = field.getAnnotation(Column.class);
+				String columnName = column.name();
+				String value = columnName + " = ?";
+					if (setfields.length() > 1) {
+						setfields.append(", ");
+					}
+					setfields.append(value);
+				
+			}
+
+		}// den day la da co dc table name va field name 
+		// cau lenh trong tuong tuong neu field lon hon 1 thi them dau , va dau ? -> update table set field = ? ...
+		String sql = "UPDATE " + tableName + " SET " + setfields.toString() + " WHERE ID = ? " ;
+		return sql;
+	}
+	private String buildSqlInsert() {		
+		String tableName = "";
+		if (zClass.isAnnotationPresent(Table.class)) // check ben annotation
+		{
+			Table table = zClass.getAnnotation(Table.class);
+			tableName = table.name();
+		}
+		StringBuilder fields = new StringBuilder("");
+		StringBuilder values = new StringBuilder("");
+		for (Field field : zClass.getDeclaredFields()) {
+			
+			if(fields.length()>1) {
+				fields.append(",");
+				values.append(",");
+			}
+			if (field.isAnnotationPresent(Column.class)) // check ben annotation
+			{
+				Column column = field.getAnnotation(Column.class);
+				fields.append(column.name());
+				values.append("?");
+			}
+		}	
+		String sql = "INSERT INTO " + tableName+"("+fields.toString()+") VALUES("+values.toString()+")";		
+		return sql;
 	}
 
 }

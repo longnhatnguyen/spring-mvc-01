@@ -30,41 +30,54 @@ public class BuildingService implements IBuildingService {
 		return results;
 	}
 
-	@Override
-	public void update(BuildingDTO updateBuilding) { // service // DTO -> entity 
-		BuildingEntity buildingEntity = new BuildingEntity();
-		buildingEntity.setName(updateBuilding.getName()); // lay du lieu tu DTO nha ra cho entity
-		buildingEntity.setId(updateBuilding.getId()); // lay du lieu tu DTO nha ra cho entity
-		buildingEntity.setWard(updateBuilding.getWard()); // lay du lieu tu DTO nha ra cho entity	
-		//buildingEntity.set(updateBuilding.getIdUpDate()); // lay du lieu tu DTO nha ra cho entity	
-		// sau khi mÃ¬nh cÃ³ dá»¯ liá»‡u thÃ¬ mÃ¬nh náº¡p láº¡i cho bÃªn repo Ä‘á»ƒ Ä‘áº©y lÃªn
-		buildingReporsitory.update(buildingEntity);
-	}
+//	@Override
+//	public void update(BuildingDTO updateBuilding) { // service // DTO -> entity 
+//		BuildingEntity buildingEntity = new BuildingEntity();
+//		buildingEntity.setName(updateBuilding.getName()); // lay du lieu tu DTO nha ra cho entity
+//		buildingEntity.setId(updateBuilding.getId()); // lay du lieu tu DTO nha ra cho entity
+//		buildingEntity.setWard(updateBuilding.getWard()); // lay du lieu tu DTO nha ra cho entity	
+//		//buildingEntity.set(updateBuilding.getIdUpDate()); // lay du lieu tu DTO nha ra cho entity	
+//		// sau khi mÃ¬nh cÃ³ dá»¯ liá»‡u thÃ¬ mÃ¬nh náº¡p láº¡i cho bÃªn repo Ä‘á»ƒ Ä‘áº©y lÃªn
+//		buildingReporsitory.update(buildingEntity);
+//	}
 
-
-	@Override
-	public void insert(BuildingDTO newBuilding) {
-		//List<BuildingDTO> results = new ArrayList<BuildingDTO>(); 	 // khai bao list DTO	
-//	==	for (BuildingDTO item: results ) { // duyet list tra ra du lieu c
-//			BuildingEntity buildingEntity = buildingConverter.convertEntity(item);
-//			results.add(item);
-//			buildingReporsitory.insert(results);
-//		}
-		BuildingEntity buildingEntity = new BuildingEntity();
-		buildingEntity.setName(newBuilding.getName()); // lay du lieu tu DTO nha ra cho entity
-		buildingEntity.setWard(newBuilding.getWard()); // lay du lieu tu DTO nha ra cho entity		
-		buildingEntity.setNumberofbasement(newBuilding.getNumberofbasement()); // lay du lieu tu DTO nha ra cho entity		
-		buildingReporsitory.insert(buildingEntity);
-		
-	}
 
 	@Override
 	public void delete(String id) {
-		BuildingEntity buildingEntity = new BuildingEntity();
-		//buildingEntity.setId(deleteBuilding.getId());
-		//buildingReporsitory.delete(buildingEntity);
+		//BuildingEntity buildingEntity = new BuildingEntity();
 		buildingReporsitory.delete(id);
 	}
+
+@Override
+public BuildingDTO insert(BuildingDTO newBuilding) {
+	// TODO Auto-generated method stub
+	BuildingConverter buildingConverter = new BuildingConverter();
+	BuildingEntity buildingEntity = buildingConverter.convertEntity(newBuilding);
+	buildingReporsitory.insert(buildingEntity);
+	return null;
+}
+
+@Override
+public BuildingDTO update(BuildingDTO updateBuilding, String id) {
+	BuildingConverter buildingConverter = new BuildingConverter();
+	BuildingEntity buildingEntity = buildingConverter.convertEntity(updateBuilding);
+	buildingReporsitory.update(buildingEntity,id);
+	return null;
+}
+
+@Override
+public void findID(String id) {
+	buildingReporsitory.findById(id);
+}
+
+//@Override
+//public BuildingDTO update(BuildingDTO updateBuilding) {
+//	// TODO Auto-generated method stub
+//	BuildingConverter buildingConverter = new BuildingConverter();
+//	BuildingEntity buildingEntity = buildingConverter.convertEntity(updateBuilding);
+//	buildingReporsitory.update(buildingEntity);
+//	return null;
+//}
 
 
 }

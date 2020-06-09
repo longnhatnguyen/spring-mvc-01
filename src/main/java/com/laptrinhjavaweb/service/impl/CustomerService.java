@@ -50,14 +50,12 @@ public class CustomerService implements ICustomerService {
 		customerRepository.delete(id);
 	}
 
-//	@Override
-//	public void insert(BuildingDTO newBuilding) {
-//		List<BuildingDTO> results = new ArrayList<BuildingDTO>(); 		
-//		for (BuildingDTO item: results ) {
-//			BuildingEntity buildingEntity = buildingConverter.convertEntity(item);
-//			results.add(item);
-//			buildingReporsitory.insert(results);
-//		}
+	@Override
+	public void findID(String id) {
+		customerRepository.findById(id);
+
+	}
+
 	
 
 }
