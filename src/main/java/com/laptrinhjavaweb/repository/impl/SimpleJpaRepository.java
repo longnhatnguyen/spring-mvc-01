@@ -143,7 +143,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				
 			}
 			int i = stmt.executeUpdate();
-			System.out.println(i + " Cáº­p nháº­t thÃ nh cÃ´ng");
+			System.out.println(i + "Update success");
 			System.out.println(sql);
 			connection.commit();
 
@@ -271,16 +271,20 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			String sql = createSQLUpdate();		
 			statement = conn.prepareStatement(sql.toString());
 			Class<?> aClass = object.getClass();
-			int index = 0;
+			int index =0;
 			for (Field field : aClass.getDeclaredFields()) {
 				index ++;
 				field.setAccessible(true);
 				statement.setObject(index, field.get(object));
+				statement.setObject(aClass.getDeclaredFields().length+1,id);
+				//System.out.println(aClass.getDeclaredFields().length);
+				//int k = aClass.getDeclaredFields()[index-1];
+				//index = index + 1;
 				
 			}
 			if (conn != null) {
-				statement.setObject(1,id); // em chac chan sai doan nay, van de cua em la truyen id vao where nhung ko biet lam
-				
+				// em chac chan sai doan nay, van de cua em la truyen id vao where nhung ko biet lam
+				//statement.setObject(index,id); 
 				System.out.println(id);
 				System.out.println(sql);
 				statement.executeUpdate();
@@ -337,7 +341,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 
 		}// den day la da co dc table name va field name 
 		// cau lenh trong tuong tuong neu field lon hon 1 thi them dau , va dau ? -> update table set field = ? ...
-		String sql = "UPDATE " + tableName + " SET " + setfields.toString() + " WHERE ID = ? " ;
+		String sql = "UPDATE " + tableName + " SET " + setfields.toString() + " WHERE ID = ?" ;
 		return sql;
 	}
 	private String buildSqlInsert() {		
