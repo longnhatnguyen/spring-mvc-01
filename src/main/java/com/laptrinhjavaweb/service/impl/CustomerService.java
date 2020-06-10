@@ -3,6 +3,7 @@ package com.laptrinhjavaweb.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.laptrinhjavaweb.DTO.BuildingDTO;
 import com.laptrinhjavaweb.DTO.CustomerDTO;
 import com.laptrinhjavaweb.converter.CustomerConverter;
 import com.laptrinhjavaweb.entity.BuildingEntity;
@@ -56,6 +57,14 @@ public class CustomerService implements ICustomerService {
 
 	}
 
-	
+	@Override
+	public CustomerDTO update(CustomerDTO updateCustomer, String id) {
+		CustomerConverter converter = new CustomerConverter();
+		CustomerEntity customerEntity = converter.customerConvertEntity(updateCustomer);
+		customerRepository.update(customerEntity, id);
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

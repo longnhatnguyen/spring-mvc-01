@@ -23,7 +23,7 @@ public class CustomerController {
 //			System.out.println("SDT " + item.getPhone());
 //			System.out.println("---------------------");
 //		}
-		delete();
+		update();
 	}
 	public static void insert() {
 		ICustomerService customerService = new CustomerService();
@@ -49,6 +49,20 @@ public class CustomerController {
 		String id = new Scanner(System.in).nextLine();
 		ICustomerService customerService = new CustomerService();
 		customerService.findID(id); // nạp chồng phương thức
+	}
+	public static void update() {
+		ICustomerService customerService = new CustomerService();
+		CustomerDTO customerDTO = new CustomerDTO();
+		System.out.print("Import Id You want to edit : ");
+		String id = new Scanner(System.in).nextLine();
+		customerDTO.setId(id);
+		System.out.print("Import new name of custom� : ");
+		String name = new Scanner(System.in).nextLine();
+		customerDTO.setFullName(name);
+		System.out.print("Import new phone of custom : ");
+		String phone = new Scanner(System.in).nextLine();
+		customerDTO.setPhone(phone);
+		customerService.update(customerDTO,id);
 	}
 
 
