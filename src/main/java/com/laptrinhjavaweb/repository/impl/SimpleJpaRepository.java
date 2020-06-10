@@ -321,12 +321,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			Table table = zClass.getAnnotation(Table.class);
 			tableName = table.name();
 		} // lay name
-
-		// KHÚC KHÁC VỚI INSERT
 		StringBuilder setfields = new StringBuilder();
-		String id = null;
-		
-		// VIẾT QUERY CHO CLASS CON - (name, street....) values (?,?,...)
 		for (Field field : zClass.getDeclaredFields()) { // get mảng các column trong entity
 			if (field.isAnnotationPresent(Column.class)) {
 				Column column = field.getAnnotation(Column.class);
