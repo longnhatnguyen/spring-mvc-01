@@ -8,7 +8,7 @@ import com.laptrinhjavaweb.DTO.CustomerDTO;
 public interface ICustomerService {
 	List<CustomerDTO> findAll();
 	void insert(CustomerDTO newCustomerDTO);
-	CustomerDTO update(CustomerDTO updateCustomer, String id);
-	void delete(String id);
-	void findID(String id);
+	CustomerDTO update(CustomerDTO updateCustomer, Long id);
+	void delete(Long id);
+	void findID(Long id);
 }

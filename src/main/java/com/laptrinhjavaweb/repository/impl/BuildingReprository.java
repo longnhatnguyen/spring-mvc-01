@@ -81,9 +81,7 @@ public class BuildingReprository extends SimpleJpaRepository<BuildingEntity> imp
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-
-		
+		}	
 	}*/
 
 } 

@@ -12,8 +12,7 @@ import com.laptrinhjavaweb.service.IBuildingService;
 
 public class BuildingService implements IBuildingService {
 	IBuildingRepository buildingReporsitory = new BuildingReprository();
-	BuildingConverter buildingConverter = new BuildingConverter();
-	 
+	BuildingConverter buildingConverter = new BuildingConverter();	 
 	@Override
 	public List<BuildingDTO> findAll1() {
 		List<BuildingDTO> results = new ArrayList<BuildingDTO>(); // gá»�i DTO vÃ o
@@ -29,7 +28,6 @@ public class BuildingService implements IBuildingService {
 		}
 		return results;
 	}
-
 //	@Override
 //	public void update(BuildingDTO updateBuilding) { // service // DTO -> entity 
 //		BuildingEntity buildingEntity = new BuildingEntity();
@@ -40,14 +38,11 @@ public class BuildingService implements IBuildingService {
 //		// sau khi mÃ¬nh cÃ³ dá»¯ liá»‡u thÃ¬ mÃ¬nh náº¡p láº¡i cho bÃªn repo Ä‘á»ƒ Ä‘áº©y lÃªn
 //		buildingReporsitory.update(buildingEntity);
 //	}
-
-
 	@Override
-	public void delete(String id) {
+	public void delete(Long id) {
 		//BuildingEntity buildingEntity = new BuildingEntity();
 		buildingReporsitory.delete(id);
 	}
-
 @Override
 public BuildingDTO insert(BuildingDTO newBuilding) {
 	// TODO Auto-generated method stub
@@ -56,20 +51,17 @@ public BuildingDTO insert(BuildingDTO newBuilding) {
 	buildingReporsitory.insert(buildingEntity);
 	return null;
 }
-
 @Override
-public BuildingDTO update(BuildingDTO updateBuilding, String id) {
+public BuildingDTO update(BuildingDTO updateBuilding, Long id) {
 	BuildingConverter buildingConverter = new BuildingConverter();
 	BuildingEntity buildingEntity = buildingConverter.convertEntity(updateBuilding);
 	buildingReporsitory.update(buildingEntity,id);
 	return null;
 }
-
 @Override
-public void findID(String id) {
+public void findID(Long id) {
 	buildingReporsitory.findById(id);
 }
-
 //@Override
 //public BuildingDTO update(BuildingDTO updateBuilding) {
 //	// TODO Auto-generated method stub
@@ -78,6 +70,4 @@ public void findID(String id) {
 //	buildingReporsitory.update(buildingEntity);
 //	return null;
 //}
-
-
 }

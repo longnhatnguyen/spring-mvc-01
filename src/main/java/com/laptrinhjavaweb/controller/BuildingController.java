@@ -119,17 +119,17 @@ public class BuildingController {
 		IBuildingService buildingService = new BuildingService();
 		List<BuildingDTO> results = buildingService.findAll1();
 		System.out.print("Import Id You want to find :");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		buildingService.findID(id);
 			boolean stt = false;
 		for (BuildingDTO item : results) {
-			if (item.getId().equalsIgnoreCase(id)) {
-				stt = true;
-				System.out.println(" Name  : " + item.getName());
+			if (item.getId()== id )
+			{
+				System.out.println("Name : " + item.getName());
 				System.out.println("Ward : " + item.getWard());
 				System.out.println("Street : " + item.getStreet());
 				System.out.println(" Numberofbasement: " + item.getNumberofbasement());
-				System.out.println(" Numberofbasement " + item.getNumberofbasement());
+				//System.out.println(" Numberofbasement " + item.getNumberofbasement());
 				System.out.println("---------------------");
 			}
 		}
@@ -145,9 +145,9 @@ public class BuildingController {
 		BuildingDTO buildingDTO = new BuildingDTO();
 		boolean stt = false;
 		System.out.print("Import Id You want to edit : ");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		for (BuildingDTO item : results) {
-			if (item.getId().equalsIgnoreCase(id)) {
+			if (item.getId()== id ) {
 				stt = true;
 				buildingDTO.setId(id);
 				System.out.print("Import new name of building  : ");
@@ -184,7 +184,7 @@ public class BuildingController {
 		IBuildingService buildingService = new BuildingService();
 		BuildingDTO buildingDTO = new BuildingDTO();
 		System.out.print("Import Id You want to delete : ");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		buildingService.delete(id); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 	}
 

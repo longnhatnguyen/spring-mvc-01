@@ -24,8 +24,8 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 	private String id = "";
 	@SuppressWarnings("unchecked")
 	public SimpleJpaRepository() {
-		 //vi T la 1 generics nen phai ep sang Class va duoi day la syntax
-		zClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; // syntax Ã‰p T sang class
+		// vi T la 1 generics nen phai ep sang Class va duoi day la syntax
+		zClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]; // syntax																												// Ã‰p																													// T																											// sang																												// class
 	}
 	protected Connection getConnection() { // connection xÃ i chung
 		// STEP 2: Register JDBC driver
@@ -38,7 +38,8 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		// STEP 3: Open a connection
 		System.out.println("Connecting to a selected database...");
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/estate62020module1part1", "root", "123456");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/estate62020module1part1",
+					"root", "123456");
 			return connection;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -47,7 +48,6 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		System.out.println("Connected database successfully...");
 		return null;
 	}
-
 	@Override
 	public List<T> findAllJpa() { // vi goi Jpa sang nen phai dung FindAll cua Jpa de ghi de lai
 		// TODO Auto-generated method stub
@@ -70,8 +70,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				Table table = zClass.getAnnotation(Table.class);
 				tableName = table.name();
 			}
-
-			String sql = "select *from " + tableName;
+			String sql = "select * FROM " + tableName;
 			rs = stmt.executeQuery(sql);
 
 			if (zClass.isAnnotationPresent(Entity.class))// kiem tra zclass phai la entity trong annotation
@@ -91,15 +90,13 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 								Column column = field.getAnnotation(Column.class); // get column
 								if (column.name().equals(columnName) && columnValue != null) {
 									BeanUtils.setProperty(object, field.getName(), columnValue);
-									break;
-
+								break;
 								}
 							}
 						}
 					}
 					results.add(object);
 				}
-
 			}
 			rs.close();
 		} catch (SQLException se) {
@@ -123,8 +120,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		} // end try
 		System.out.println("load Repositoy");
 		return results;
-
-	} 
+	}
 	@Override
 	public void insert(Object object) {
 		String sql = buildSqlInsert();
@@ -137,10 +133,9 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 			Class<?> aClass = object.getClass();
 			int index = 0;
 			for (Field field : aClass.getDeclaredFields()) {
-				index ++;
+				index++;
 				field.setAccessible(true);
 				stmt.setObject(index, field.get(object));
-				
 			}
 			int i = stmt.executeUpdate();
 			System.out.println(i + "Update success");
@@ -169,33 +164,27 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				e.printStackTrace();
 			}
 		}
-		
 	}
-
-	
-
 	@Override
-	public void delete(String id) {
+	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement statement = null;
 		try {
 			conn = getConnection();
 			conn.setAutoCommit(false);
-			
 			String tableName = "";
 			if (zClass.isAnnotationPresent(Table.class)) {
 				Table table = zClass.getAnnotation(Table.class);
 				tableName = table.name();
 			}
-			
-			String sql = "DELETE FROM "+tableName+" WHERE id = ?";
-
+			String sql = "DELETE FROM " + tableName + " WHERE id = ?";
 			statement = conn.prepareStatement(sql);
 			if (conn != null) {
 				statement.setObject(1, id);
-				statement.executeUpdate();System.out.println(sql);
-				//int i = stmt.executeUpdate();
+				statement.executeUpdate();
+				System.out.println(sql);
+				// int i = stmt.executeUpdate();
 				System.out.println(" Cáº­p nháº­t thÃ nh cÃ´ng");
 				conn.commit();
 			}
@@ -218,25 +207,23 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		}
 	}
 	@Override
-	public List<T> findById(String id) {
+	public List<T> findById(Long id) {
 		Connection conn = null;
 		PreparedStatement statement = null;
 		try {
 			conn = getConnection();
 			conn.setAutoCommit(false);
-			
 			String tableName = "";
 			if (zClass.isAnnotationPresent(Table.class)) {
 				Table table = zClass.getAnnotation(Table.class);
 				tableName = table.name();
 			}
-			
-			String sql = "SELECT FROM "+tableName+" WHERE id = ?";
+			String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
 			statement = conn.prepareStatement(sql);
 			if (conn != null) {
 				statement.setObject(1, id);
-				statement.executeUpdate();
-				//int i = stmt.executeUpdate();
+				//statement.executeUpdate();
+				// int i = stmt.executeUpdate();
 				System.out.println(" done");
 				conn.commit();
 			}
@@ -247,54 +234,40 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				conn.close();
-				statement.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		return null;
 	}
 	@Override
-	public void update(Object object, String id) {
+	public void update(Object object, Long id) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
-		PreparedStatement statement = null;	
-		
-		try {			
+		PreparedStatement statement = null;
+
+		try {
 			conn = getConnection();
 			conn.setAutoCommit(false);
-			String sql = createSQLUpdate();		
+			String sql = createSQLUpdate();
 			statement = conn.prepareStatement(sql.toString());
 			Class<?> aClass = object.getClass();
-			int index =0;
+			int index = 0;
 			for (Field field : aClass.getDeclaredFields()) {
-				index ++;
+				index++;
 				field.setAccessible(true);
 				statement.setObject(index, field.get(object));
-				statement.setObject(aClass.getDeclaredFields().length+1,id);
-				//System.out.println(aClass.getDeclaredFields().length);
-				//int k = aClass.getDeclaredFields()[index-1];
-				//index = index + 1;
-				
+				// System.out.println(aClass.getDeclaredFields().length);
+				// int k = aClass.getDeclaredFields()[index-1];
+				// index = index + 1;
 			}
+			statement.setObject(aClass.getDeclaredFields().length + 1, id);
 			if (conn != null) {
-				// em chac chan sai doan nay, van de cua em la truyen id vao where nhung ko biet lam
-				//statement.setObject(index,id); 
 				System.out.println(id);
 				System.out.println(sql);
 				statement.executeUpdate();
 				conn.commit();
-				//int i = stmt.executeUpdate();
+				// int i = stmt.executeUpdate();
 				System.out.println(" Cap nhat thanh cong");
-				
 			}
-			
-			
+
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -312,39 +285,33 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				e.printStackTrace();
 			}
 		}
-		
 	}
- // update + table + SETS id = ? , name = ? where id ;
+
+	// update + table + SETS id = ? , name = ? where id ;
 	private String createSQLUpdate() {
 		String tableName = "";
 		if (zClass.isAnnotationPresent(Table.class)) {
 			Table table = zClass.getAnnotation(Table.class);
 			tableName = table.name();
 		} // lay name
-
-		// KHÚC KHÁC VỚI INSERT
 		StringBuilder setfields = new StringBuilder();
-		String id = null;
-		
-		// VIẾT QUERY CHO CLASS CON - (name, street....) values (?,?,...)
 		for (Field field : zClass.getDeclaredFields()) { // get mảng các column trong entity
 			if (field.isAnnotationPresent(Column.class)) {
 				Column column = field.getAnnotation(Column.class);
 				String columnName = column.name();
 				String value = columnName + " = ?";
-					if (setfields.length() > 1) {
-						setfields.append(", ");
-					}
-					setfields.append(value);
-				
+				if (setfields.length() > 1) {
+					setfields.append(", ");
+				}
+				setfields.append(value);
 			}
-
-		}// den day la da co dc table name va field name 
-		// cau lenh trong tuong tuong neu field lon hon 1 thi them dau , va dau ? -> update table set field = ? ...
-		String sql = "UPDATE " + tableName + " SET " + setfields.toString() + " WHERE ID = ?" ;
+		} // den day la da co dc table name va field name
+			// cau lenh trong tuong tuong neu field lon hon 1 thi them dau , va dau ? ->
+			// update table set field = ? ...
+		String sql = "UPDATE " + tableName + " SET " + setfields.toString() + " WHERE ID = ?";
 		return sql;
 	}
-	private String buildSqlInsert() {		
+	private String buildSqlInsert() {
 		String tableName = "";
 		if (zClass.isAnnotationPresent(Table.class)) // check ben annotation
 		{
@@ -354,8 +321,7 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 		StringBuilder fields = new StringBuilder("");
 		StringBuilder values = new StringBuilder("");
 		for (Field field : zClass.getDeclaredFields()) {
-			
-			if(fields.length()>1) {
+			if (fields.length() > 1) {
 				fields.append(",");
 				values.append(",");
 			}
@@ -365,9 +331,8 @@ public class SimpleJpaRepository<T> implements JpaRepositoy<T> {
 				fields.append(column.name());
 				values.append("?");
 			}
-		}	
-		String sql = "INSERT INTO " + tableName+"("+fields.toString()+") VALUES("+values.toString()+")";		
+		}
+		String sql = "INSERT INTO " + tableName + "(" + fields.toString() + ") VALUES(" + values.toString() + ")";
 		return sql;
 	}
-
 }
