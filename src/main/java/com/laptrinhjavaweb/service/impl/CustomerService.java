@@ -44,7 +44,7 @@ public class CustomerService implements ICustomerService {
 		
 	}
 	@Override
-	public void delete(String id) {
+	public void delete(Long id) {
 		CustomerEntity customerEntity = new CustomerEntity();
 		//buildingEntity.setId(deleteBuilding.getId());
 		//buildingReporsitory.delete(buildingEntity);
@@ -52,13 +52,13 @@ public class CustomerService implements ICustomerService {
 	}
 
 	@Override
-	public void findID(String id) {
+	public void findID(Long id) {
 		customerRepository.findById(id);
 
 	}
 
 	@Override
-	public CustomerDTO update(CustomerDTO updateCustomer, String id) {
+	public CustomerDTO update(CustomerDTO updateCustomer, Long id) {
 		CustomerConverter converter = new CustomerConverter();
 		CustomerEntity customerEntity = converter.customerConvertEntity(updateCustomer);
 		customerRepository.update(customerEntity, id);

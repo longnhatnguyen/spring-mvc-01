@@ -30,6 +30,11 @@ public class BuildingService implements IBuildingService {
 		return results;
 	}
 
+	@Override
+	public List<BuildingDTO> findAll1(String name, String ward, String street, String district) {
+		return null;
+	}
+
 //	@Override
 //	public void update(BuildingDTO updateBuilding) { // service // DTO -> entity 
 //		BuildingEntity buildingEntity = new BuildingEntity();
@@ -43,7 +48,7 @@ public class BuildingService implements IBuildingService {
 
 
 	@Override
-	public void delete(String id) {
+	public void delete(Long id) {
 		//BuildingEntity buildingEntity = new BuildingEntity();
 		buildingReporsitory.delete(id);
 	}
@@ -58,7 +63,7 @@ public BuildingDTO insert(BuildingDTO newBuilding) {
 }
 
 @Override
-public BuildingDTO update(BuildingDTO updateBuilding, String id) {
+public BuildingDTO update(BuildingDTO updateBuilding, Long id) {
 	BuildingConverter buildingConverter = new BuildingConverter();
 	BuildingEntity buildingEntity = buildingConverter.convertEntity(updateBuilding);
 	buildingReporsitory.update(buildingEntity,id);
@@ -66,7 +71,7 @@ public BuildingDTO update(BuildingDTO updateBuilding, String id) {
 }
 
 @Override
-public void findID(String id) {
+public void findID(Long id) {
 	buildingReporsitory.findById(id);
 }
 

@@ -40,13 +40,13 @@ public class CustomerController {
 		ICustomerService customerService = new CustomerService();
 		//CustomerDTO customerDTO = new CustomerDTO();
 		System.out.print("Import Id You want to delete : ");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		customerService.delete(id); // nạp chồng phương thức
 
 	}
 	public static void find() {
 		System.out.print("Import Id You want to find : ");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		ICustomerService customerService = new CustomerService();
 		customerService.findID(id); // nạp chồng phương thức
 	}
@@ -54,7 +54,7 @@ public class CustomerController {
 		ICustomerService customerService = new CustomerService();
 		CustomerDTO customerDTO = new CustomerDTO();
 		System.out.print("Import Id You want to edit : ");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		customerDTO.setId(id);
 		System.out.print("Import new name of custom� : ");
 		String name = new Scanner(System.in).nextLine();

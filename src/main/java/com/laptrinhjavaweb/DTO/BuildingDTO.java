@@ -6,7 +6,7 @@ public class BuildingDTO {
 	private String street;
 	private String district;
 	private int numberofbasement;
-	private String id;
+	private Long id;
 	
 
 	public String getDistrict() {
@@ -49,11 +49,11 @@ public class BuildingDTO {
 		this.ward = ward;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 }

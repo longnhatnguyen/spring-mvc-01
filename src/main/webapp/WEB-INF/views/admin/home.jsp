@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -131,10 +133,13 @@
 				</div><!-- /.page-header -->
 
 				<div class="row">
+                    <c:set var="homePageURL" value="/admin/home"/>
+                    <form:form action="${homePageURL}" method="get" modelAttribute="model">
 					<div class="col-xs-11 " style="margin-left: 30px;">
 						<!-- PAGE CONTENT BEGINS -->
 
 						<div class="widget-box">
+							<%--begin--%>
 							<div class="widget-header">
 								<h4 class="widget-title">Text Area</h4>
 								<div class="widget-toolbar">
@@ -149,7 +154,7 @@
 										<div class="col-xs-6">
 											<div>
 												<label for="name"> Tên tòa nhà </label>
-												<input type="text" id="name" class="form-control" />
+												<input type="text" id="name" class="form-control" name ="name" value=""/>
 											</div>
 										</div>
 										<div class="col-xs-6" style="margin-bottom: 20px;">
@@ -158,23 +163,55 @@
 												<input type="number" id="buildingArea" class="form-control" />
 											</div>
 										</div>
-										<div class="form-group col-xs-4">
-											<label class="control-label" for="food">Quận hiện có</label>
+										<%--<div class="form-group col-xs-4">--%>
 
-											<div class="">
-												<select id="food" class="multiselect" multiple="">
-													<option value="cheese">Cheese</option>
-													<option value="tomatoes">Tomatoes</option>
-													<option value="mozarella">Mozzarella</option>
-													<option value="mushrooms">Mushrooms</option>
-													<option value="pepperoni">Pepperoni</option>
-												</select>
-											</div>
-										</div>
+                                            <%--<div class="form-group">--%>
+                                                <label class="col-sm-1 control-label no-padding-right"
+                                                       for="district">Quận hiện có</label>
+                                                <div class="col-sm-3">
+                                                    <select class="col-sm-3 control-label no-padding-right"
+                                                             name="district">
+                                                        <option value="">--Quận hiện có--</option>
+                                                        <option value="1">Quận 1</option>
+                                                        <option value="2">Quận 2</option>
+                                                        <option value="3">Quận 3</option>
+                                                        <option value="4">Quận 4</option>
+                                                        <option value="5">Quận 5</option>
+                                                        <option value="6">Quận 6</option>
+                                                        <option value="7">Quận 7</option>
+                                                        <option value="8">Quận 8</option>
+                                                        <option value="9">Quận 9</option>
+                                                        <option value="10">Quận 10</option>
+                                                        <option value="11">Quận 11</option>
+                                                        <option value="12">Quận 12</option>
+                                                        <option value="13">Quận Bình Tân</option>
+                                                        <option value="14">Quận Bình Thạnh</option>
+                                                        <option value="15">Quận Gò Vấp</option>
+                                                        <option value="16">Quận Phú Nhuận</option>
+                                                        <option value="17">Quận Tân Bình</option>
+                                                        <option value="18">Quận Tân Phú</option>
+                                                        <option value="19">Quận Thủ Đức</option>
+                                                        <option value="20">Huyện Bình Chánh</option>
+                                                        <option value="21">Huyện Cần Giờ</option>
+                                                        <option value="22">Huyện Củ Chi</option>
+                                                        <option value="23">Huyện Hóc Môn</option>
+                                                        <option value="24">Huyện Nhà Bè</option>
+                                                    </select>
+                                                </div>
+											<%--<div class="">--%>
+												<%--<select id="food" class="multiselect" multiple="">--%>
+													<%--<option value="cheese">Cheese</option>--%>
+													<%--<option value="tomatoes">Tomatoes</option>--%>
+													<%--<option value="mozarella">Mozzarella</option>--%>
+													<%--<option value="mushrooms">Mushrooms</option>--%>
+													<%--<option value="pepperoni">Pepperoni</option>--%>
+												<%--</select>--%>
+											<%--</div>--%>
+                                        <%--</div>--%>
 										<div class="col-xs-4">
 											<div>
 												<label for="nameward"> Phường </label>
-												<input type="text" id="nameward" class="form-control" />
+												<input type="text" id="nameward" class="form-control" name = "ward" value ="" />
 											</div>
 										</div>
 										<div class="col-xs-4" style="margin-bottom: 20px;">
@@ -238,17 +275,18 @@
 											</div>
 										</div>
 										<div class="form-group col-xs-4">
-											<label class="control-label" for="food">Nhân viên phụ trách</label>
+                                            <div class="col-sm-3">
+                                                <label >Chọn nhân viên phụ trách</label>
+                                                <div>
+                                                    <select class="chosen-select form-control" id="district"
+                                                            data-placeholder="Choose a State...">
+                                                        <option value="">--Nhân viên phụ trách--</option>
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="AK">Alaska</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-											<div class="">
-												<select id="food" class="multiselect" multiple="">
-													<option value="cheese">Cheese</option>
-													<option value="tomatoes">Tomatoes</option>
-													<option value="mozarella">Mozzarella</option>
-													<option value="mushrooms">Mushrooms</option>
-													<option value="pepperoni">Pepperoni</option>
-												</select>
-											</div>
 										</div>
 										<div class="col-xs-12" style="margin-bottom: 20px;">
 											<form>
@@ -264,7 +302,7 @@
 											</form>
 										</div>
 										<div class="col-xs-12">
-											<button type="button" class="btn btn-sm btn-success">
+											<button type="submit" class="btn btn-sm btn-success">
 												Tìm kiếm
 												<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
 											</button>
@@ -274,10 +312,12 @@
 								</div>
 							</div>
 						</div>
+                     				<%--end--%>
 						<!-- PAGE CONTENT ENDS -->
 						<!-- PAGE CONTENT ENDS -->
 					</div><!-- /.col -->
-				</div><!-- /.row -->
+                    </form:form>
+                </div><!-- /.row -->
 
 				<div class="row">
 					<div class="col-xs-11 " style="margin-left: 29px ; margin-top: 10px;">

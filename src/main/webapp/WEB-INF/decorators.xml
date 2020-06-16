@@ -2,7 +2,7 @@
 <decorators defaultdir="/decorators">
    
     <decorator name="home" page="home.jsp">
-       <pattern>/home</pattern>
+       <pattern>/admin/home</pattern>
     </decorator>
     <decorator name="edit" page="edit.jsp">
        <pattern>/edit</pattern>

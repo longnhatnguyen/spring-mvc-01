@@ -35,7 +35,7 @@ public class BuildingEntity {
 		this.district = district;
 	}
 	@Column(name = "id")
-	private String id;
+	private Long id;
 	
 //	private String idUpDate;
 //	
@@ -54,11 +54,11 @@ public class BuildingEntity {
 		this.numberofbasement = numberofbasement;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

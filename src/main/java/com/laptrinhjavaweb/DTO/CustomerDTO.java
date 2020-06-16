@@ -3,7 +3,7 @@ package com.laptrinhjavaweb.DTO;
 public class CustomerDTO {
 	private String fullName;
 	private String phone;
-	private String id;
+	private Long id;
 	
 	public String getFullName() {
 		return fullName;
@@ -12,10 +12,10 @@ public class CustomerDTO {
 		this.fullName = fullName;
 	}
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getPhone() {

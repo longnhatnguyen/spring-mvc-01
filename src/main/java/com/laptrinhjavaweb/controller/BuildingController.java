@@ -6,6 +6,7 @@ import java.util.Scanner;
 import javax.swing.text.AbstractDocument.BranchElement;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,44 +18,20 @@ import com.laptrinhjavaweb.service.impl.BuildingService;
 
 @Controller(value = "controllerOfAdmin")
 public class BuildingController {
-	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView homePage() {
+    private IBuildingService  buildingService = new BuildingService();
+
+	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
+	public ModelAndView homePage(@ModelAttribute("model") BuildingDTO model) {
 		ModelAndView mav = new ModelAndView("admin/home");
 		return mav;
-		
+
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView homePageEdit() {
 		ModelAndView mav = new ModelAndView("admin/edit");
-		return mav;	
+		return mav;
 	}
 	public static void main(String[] args) {
-
-//		IBuildingService buildingService = new BuildingService();
-//		// DATA nhan tu client
-////		String[] types = new String[] { "TANG_TRET", "NGUYEN_CAN" };
-////		int rentArialFrom = 300;
-////		int rentArialTo = 400;
-//
-//		List<BuildingDTO> results = buildingService.findAll1();
-//
-//		for (BuildingDTO item : results) {
-//			if (item.getId() == 3) {
-//				System.out.println("TÃªn tÃ²a nhÃ  : " + item.getName());
-//				System.out.println("TÃªn phÆ°á»�ng : " + item.getWard());
-//				System.out.println("TÃªn Ä‘Æ°á»�ng : " + item.getStreet());
-//				System.out.println(" SÃ´ táº§ng háº§m : " + item.getNumberofbasement());
-//				System.out.println("---------------------");
-//			}
-//		}
-//		BuildingDTO buildingDTO = new BuildingDTO();
-		// buildingDTO.setId(3L);
-//		buildingDTO.setName(" Testttt name");
-//		buildingDTO.setWard(" Testttt wward");
-		// buildingDTO.setWard(" quáº­n 100000sdas");
-		// buildingService.insert(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
-		// buildingService.save(buildingDTO); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 		do {
 			System.out.println("1 - Find by ID");
 			System.out.println("2 - Update");
@@ -119,11 +96,11 @@ public class BuildingController {
 		IBuildingService buildingService = new BuildingService();
 		List<BuildingDTO> results = buildingService.findAll1();
 		System.out.print("Import Id You want to find :");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		buildingService.findID(id);
 			boolean stt = false;
 		for (BuildingDTO item : results) {
-			if (item.getId().equalsIgnoreCase(id)) {
+			if (item.getId()== id) {
 				stt = true;
 				System.out.println(" Name  : " + item.getName());
 				System.out.println("Ward : " + item.getWard());
@@ -145,9 +122,9 @@ public class BuildingController {
 		BuildingDTO buildingDTO = new BuildingDTO();
 		boolean stt = false;
 		System.out.print("Import Id You want to edit : ");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		for (BuildingDTO item : results) {
-			if (item.getId().equalsIgnoreCase(id)) {
+			if (item.getId()==id) {
 				stt = true;
 				buildingDTO.setId(id);
 				System.out.print("Import new name of building  : ");
@@ -184,7 +161,7 @@ public class BuildingController {
 		IBuildingService buildingService = new BuildingService();
 		BuildingDTO buildingDTO = new BuildingDTO();
 		System.out.print("Import Id You want to delete : ");
-		String id = new Scanner(System.in).nextLine();
+		Long id = new Scanner(System.in).nextLong();
 		buildingService.delete(id); // náº¡p chá»“ng phÆ°Æ¡ng thá»©c
 	}
 

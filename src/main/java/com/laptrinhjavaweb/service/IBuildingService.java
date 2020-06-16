@@ -8,9 +8,10 @@ import com.laptrinhjavaweb.entity.BuildingEntity;
 
 public interface IBuildingService {
 	List<BuildingDTO> findAll1();
-	BuildingDTO update(BuildingDTO updateBuilding, String id);// hàm update
+	List<BuildingDTO> findAll1(String name, String ward, String street, String district);
+	BuildingDTO update(BuildingDTO updateBuilding, Long id);// hàm update
 	BuildingDTO insert(BuildingDTO newBuilding);
-	void delete(String id);
-	void findID(String id);
+	void delete(Long id);
+	void findID(Long id);
 	
 }
