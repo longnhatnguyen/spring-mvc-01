@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
-<<<<<<< HEAD
-=======
-    <mapping directory="$PROJECT_DIR$/spring-mvc-01" vcs="Git" />
->>>>>>> 43014def58630acecf0dba632f90dd8b28f2c5f0
+    <mapping directory="" vcs="Git" />
   </component>
 </project>
